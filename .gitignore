@@ -44,3 +44,9 @@ next-env.d.ts
 !.env.example
 /test-results/
 /playwright-report/
+
+# Vendor agent files: `next dev` regenerates these, and this project keeps its
+# agent conventions in tandem-docs. Ignored so a routine `git add -A` cannot
+# silently re-stage what Step 8 deliberately deleted.
+AGENTS.md
+CLAUDE.md
