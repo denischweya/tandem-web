@@ -8,8 +8,9 @@
     "start": "next start",
     "lint": "eslint . --max-warnings 0",
     "typecheck": "next typegen && tsc --noEmit",
+    "format-check": "prettier --check .",
     "e2e": "playwright test",
-    "verify": "npm run typecheck && npm run lint && npm run build"
+    "verify": "npm run typecheck && npm run lint && npm run format-check && npm run build"
   },
   "dependencies": {
     "@tandem/shared": "github:denischweya/tandem-shared#v0.1.0",
@@ -26,6 +27,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.3.8",
+    "prettier": "^3.9.9",
     "typescript": "5.9.3"
   }
 }
