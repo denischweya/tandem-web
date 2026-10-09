@@ -34,10 +34,25 @@ const WEEKDAY_NAMES = [
  */
 function weekdayIndex(year: number, month: number, day: number): number {
   const t = [0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4];
+  // `month` is a 1-12 wall-clock month from `toZonedParts`, so `month - 1` is always a valid
+  // index into `t` — but `noUncheckedIndexedAccess` cannot see that invariant through a
+  // computed index, even on a 12-element tuple (finding I6, spec §14.1). Assert it explicitly
+  // rather than silently falling back to a wrong weekday.
+  const tValue = t[month - 1];
+  if (tValue === undefined) {
+    throw new RangeError(`weekdayIndex: month out of range: ${month}`);
+  }
   const y = month < 3 ? year - 1 : year;
-  return (
-    (y + Math.floor(y / 4) - Math.floor(y / 100) + Math.floor(y / 400) + t[month - 1] + day) % 7
-  );
+  return (y + Math.floor(y / 4) - Math.floor(y / 100) + Math.floor(y / 400) + tValue + day) % 7;
+}
+
+/** Same out-of-range guard as `weekdayIndex`, for the two name lookups below. */
+function nameAt(names: readonly string[], index: number, label: string): string {
+  const name = names[index];
+  if (name === undefined) {
+    throw new RangeError(`formatInviteWhen: ${label} index out of range: ${index}`);
+  }
+  return name;
 }
 
 export interface InviteWhen {
@@ -61,8 +76,12 @@ export interface InviteWhen {
 export function formatInviteWhen(startInstant: string, timeZone: string): InviteWhen {
   const parts = toZonedParts(new Date(startInstant), timeZone);
 
-  const weekday = WEEKDAY_NAMES[weekdayIndex(parts.year, parts.month, parts.day)];
-  const monthDay = `${parts.day} ${MONTH_NAMES[parts.month - 1]}`;
+  const weekday = nameAt(
+    WEEKDAY_NAMES,
+    weekdayIndex(parts.year, parts.month, parts.day),
+    'weekday',
+  );
+  const monthDay = `${parts.day} ${nameAt(MONTH_NAMES, parts.month - 1, 'month')}`;
 
   const hour12 = parts.hour % 12 === 0 ? 12 : parts.hour % 12;
   const meridiem = parts.hour < 12 ? 'AM' : 'PM';
