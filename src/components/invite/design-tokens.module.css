@@ -1,0 +1,57 @@
+/**
+ * Design tokens transcribed from the guest-invite handoff (screen 3j).
+ *
+ * This is a self-contained palette for this feature only — the repo has no
+ * site-wide design system yet, and `globals.css` already owns its own
+ * light/dark tokens for the Wave 0 scaffold. These are plain CSS custom
+ * properties, not module-scoped class names, so every child component below
+ * `.tokens` in the DOM can reference `var(--color-accent-2)` etc. regardless
+ * of which CSS module it was declared in.
+ *
+ * The original transcription also included device-frame chrome
+ * (`height:100%; overflow:hidden; …`) for simulating a phone screen inside
+ * the design tool. That's dropped here on purpose: this is a real,
+ * scrollable web page a guest opens in an actual browser, not a picture of
+ * one, so it must not clip content that doesn't fit a fixed viewport.
+ */
+.tokens {
+  --color-bg: #ffffff;
+  --color-surface: #faf5f7;
+  --color-text: #2a1a26;
+  --color-neutral-100: #faf4f7;
+  --color-neutral-200: #f3e9ee;
+  --color-neutral-300: #e7d9e0;
+  --color-neutral-400: #cdb9c3;
+  --color-neutral-500: #a8929d;
+  --color-neutral-600: #85707b;
+  --color-neutral-700: #66535d;
+  --color-neutral-800: #4a3a43;
+  --color-neutral-900: #2f222a;
+  --color-accent: #ec1c7f;
+  --color-accent-100: #ffeef5;
+  --color-accent-200: #ffd6e7;
+  --color-accent-300: #ffadcf;
+  --color-accent-400: #ff6fa8;
+  --color-accent-500: #ec1c7f;
+  --color-accent-600: #cc0f6b;
+  --color-accent-700: #a80c58;
+  --color-accent-800: #7f0943;
+  --color-accent-900: #55062d;
+  --color-accent-2: #8a3ffc;
+  --color-accent-2-100: #f4edff;
+  --color-accent-2-200: #e6d7ff;
+  --color-accent-2-300: #ccafff;
+  --color-accent-2-400: #a97cff;
+  --color-accent-2-500: #8a3ffc;
+  --color-accent-2-600: #7226e6;
+  --color-accent-2-700: #5b1bbd;
+  --color-accent-2-800: #43148c;
+  --color-accent-2-900: #2d0d5e;
+  --shadow-sm: 0 1px 3px rgba(236, 28, 127, 0.1);
+  --shadow-md: 0 8px 24px rgba(236, 28, 127, 0.14);
+  --shadow-lg: 0 20px 48px rgba(236, 28, 127, 0.18);
+  --font-heading:
+    'SF Pro Display Condensed', 'SF Pro Condensed', -apple-system, BlinkMacSystemFont, system-ui,
+    sans-serif;
+  --font-body: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+}
